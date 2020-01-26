@@ -1,28 +1,78 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div id="app-header" class="border">SÄÄTUTKA</div>
+    <div class="app-container">
+      <SelectCity />
+      <CurrentCity />
+      <div class="container">
+        <div class="row row-forecast">
+          <Forecast />
+          <Forecast />
+          <Forecast />
+          <Forecast />
+          <Forecast />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import CurrentCity from "./components/CurrentCity.vue";
+import SelectCity from "./components/SelectCity";
+import Forecast from "./components/ForecastCity";
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    HelloWorld
+    CurrentCity,
+    SelectCity,
+    Forecast
   }
-}
+};
 </script>
 
 <style>
+body {
+  font-family: "Arial Regular";
+  background-color: #f8f9fa;
+}
+
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+#app-header {
+  font-size: 23pt;
+  color: #262626;
+  width: 100%;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  background-color: #ffffff;
+  padding: 1rem;
+}
+
+.app-container {
+  width: 89.33%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.border {
+  border: 1px solid #e6e6e6;
+}
+
+.border {
+  border-radius: 10px;
+  margin-bottom: 2vh;
+}
+
+.row-forecast {
+  justify-content: space-between;
+}
+
+select {
+  margin-bottom: 2vh;
 }
 </style>
