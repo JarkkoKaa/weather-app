@@ -47,14 +47,14 @@ export default {
           if (i > 1) listOfIDs += ",";
           listOfIDs += this.options[i].value;
         }
-        this.getAll(listOfIDs);
+        this.getSelected(listOfIDs);
       } else {
         // only one city is selected
         this.getSelected(value);
       }
     },
     // get All cities
-    async getAll(IDs) {
+    async getSelected(IDs) {
       this.cities = [];
       this.isLoading = true;
       let result = await axios
@@ -74,28 +74,6 @@ export default {
         });
       this.cities = result.data.list;
       //  this.selectedWeather = result.data;
-      this.isLoading = false;
-    },
-    // get single city
-    async getSelected(id) {
-      this.cities = [];
-      this.isLoading = true;
-      let result = await axios
-        .get(
-          process.env.VUE_APP_BASE +
-            "weather?id=" +
-            id +
-            "&units=metric" +
-            "&appid=" +
-            process.env.VUE_APP_APIKEY
-        )
-        .then(response => {
-          return response;
-        })
-        .catch(error => {
-          console.log(error);
-        });
-      this.cities.push(result.data);
       this.isLoading = false;
     }
   },
