@@ -53,7 +53,7 @@ export default {
         this.getSelected(value);
       }
     },
-    // get All cities
+    // get all cities and selected cities -fixes non scandic characters
     async getSelected(IDs) {
       this.cities = [];
       this.isLoading = true;
