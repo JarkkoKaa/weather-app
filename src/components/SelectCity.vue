@@ -1,12 +1,7 @@
 <template>
   <div class="container">
     <select v-model="selected" @change="getSelected" class="form-control">
-      <option
-        v-for="option in options"
-        :value="option.value"
-        :key="option.value"
-        >{{ option.name }}</option
-      >
+      <option v-for="option in options" :value="option.value" :key="option.value">{{ option.name }}</option>
     </select>
   </div>
 </template>
@@ -16,7 +11,7 @@ export default {
   name: "SelectCity",
   data() {
     return {
-      selected: "634964"
+      selected: "all_cities"
     };
   },
   props: {

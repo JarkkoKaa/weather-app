@@ -76,7 +76,6 @@ export default {
           console.log(error);
         });
       this.forecasts = result;
-      console.log("response: ", result);
     },
     iconSRC() {
       return process.env.VUE_APP_IMGURL + this.city.weather[0].icon + "@2x.png";
@@ -109,10 +108,6 @@ export default {
 </script>
 
 <style scoped>
-.weather-wrapper {
-  width: 100%;
-}
-
 .row {
   width: 100%;
   margin: 0px;

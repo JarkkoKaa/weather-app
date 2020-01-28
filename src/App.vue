@@ -2,8 +2,10 @@
   <div id="app">
     <div id="app-header" class="wht-bg border">SÄÄTUTKA</div>
     <div class="app-container">
-      <SelectCity @selectedCity="getSelected" :options="options" />
-      <CurrentCity v-if="!isLoading" :city="selectedWeather" />
+      <SelectCity @selectedCity="selectionHandler" :options="options" />
+      <div v-if="!isLoading" class="weather-wrapper">
+        <CurrentCity v-for="city in cities" :key="city.id" :city="city" />
+      </div>
       <div v-if="isLoading" class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
         <span class="sr-only">Loading...</span>
       </div>
@@ -25,23 +27,41 @@ export default {
   data() {
     return {
       options: [
+        { name: "All cities", value: "all_cities" },
         { name: "Tampere", value: 634964 },
         { name: "Jyväskylä", value: 655195 },
         { name: "Kuopio", value: 650225 },
         { name: "Helsinki", value: 658225 }
       ],
-      selectedWeather: {},
+      cities: [],
       isLoading: true
     };
   },
   methods: {
-    async getSelected(val) {
+    selectionHandler(value) {
+      if (value == "all_cities") {
+        // as a page loads: all cities will get weather and forecast
+        let listOfIDs = "";
+        // list is short so enumerate it o(n)
+        for (let i = 1; i < this.options.length; i++) {
+          if (i > 1) listOfIDs += ",";
+          listOfIDs += this.options[i].value;
+        }
+        this.getAll(listOfIDs);
+      } else {
+        // only one city is selected
+        this.getSelected(value);
+      }
+    },
+    // get All cities
+    async getAll(IDs) {
+      this.cities = [];
       this.isLoading = true;
       let result = await axios
         .get(
           process.env.VUE_APP_BASE +
-            "weather?id=" +
-            val +
+            "group?id=" +
+            IDs +
             "&units=metric" +
             "&appid=" +
             process.env.VUE_APP_APIKEY
@@ -52,10 +72,36 @@ export default {
         .catch(error => {
           console.log(error);
         });
-      this.selectedWeather = result.data;
+      this.cities = result.data.list;
+      //  this.selectedWeather = result.data;
       this.isLoading = false;
-      console.log(this.selectedWeather);
+    },
+    // get single city
+    async getSelected(id) {
+      this.cities = [];
+      this.isLoading = true;
+      let result = await axios
+        .get(
+          process.env.VUE_APP_BASE +
+            "weather?id=" +
+            id +
+            "&units=metric" +
+            "&appid=" +
+            process.env.VUE_APP_APIKEY
+        )
+        .then(response => {
+          return response;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      this.cities.push(result.data);
+      this.isLoading = false;
     }
+  },
+  mounted() {
+    // when page loads run this as a default
+    this.selectionHandler("all_cities");
   }
 };
 </script>
@@ -103,5 +149,9 @@ select {
 
 .wht-bg {
   background: #ffffff;
+}
+
+.weather-wrapper {
+  width: 100%;
 }
 </style>
