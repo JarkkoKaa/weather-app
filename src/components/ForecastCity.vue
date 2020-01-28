@@ -1,26 +1,31 @@
 <template>
-  <div class="col-2 wht-bg border text-center">
-    <div class="col-12">
-      <div class="row time">{{ time }}</div>
-      <div class="row">
+  <b-col cols="2" class="wht-bg border text-center">
+    <b-col cols="12">
+      <b-row class="time">{{ time }}</b-row>
+      <b-row>
         <img :src="iconSRC()" alt="forecast-icon" />
-      </div>
-      <div class="row temperature">
+      </b-row>
+      <b-row class="temperature">
         {{ temp }}
         <sup>o</sup>C
-      </div>
-    </div>
-    <div class="col-12 details">
-      <div class="row">{{ forecast.wind.speed }} m/s</div>
-      <div class="row">{{ forecast.main.humidity }} %</div>
-      <div class="row">{{ precipitation }} mm</div>
-    </div>
-  </div>
+      </b-row>
+    </b-col>
+    <b-col cols="12" class="details">
+      <b-row>{{ forecast.wind.speed }} m/s</b-row>
+      <b-row>{{ forecast.main.humidity }} %</b-row>
+      <b-row>{{ precipitation }} mm</b-row>
+    </b-col>
+  </b-col>
 </template>
 
 <script>
+import { BCol, BRow } from "bootstrap-vue";
 export default {
   name: "ForecastCity",
+  components: {
+    BCol,
+    BRow
+  },
   props: {
     forecast: Object
   },

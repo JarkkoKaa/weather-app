@@ -1,14 +1,24 @@
 <template>
-  <div class="container-fluid container-select">
+  <b-container fluid class="container-select">
     <select v-model="selected" @change="getSelected" class="form-control">
-      <option v-for="option in options" :value="option.value" :key="option.value">{{ option.name }}</option>
+      <option
+        v-for="option in options"
+        :value="option.value"
+        :key="option.value"
+        >{{ option.name }}</option
+      >
     </select>
-  </div>
+  </b-container>
 </template>
 
 <script>
+import { BContainer } from "bootstrap-vue";
+
 export default {
   name: "SelectCity",
+  components: {
+    BContainer
+  },
   data() {
     return {
       selected: "all_cities"

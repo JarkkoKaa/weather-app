@@ -1,43 +1,48 @@
 <template>
   <div class="weather-wrapper">
-    <div class="container-fluid container-current wht-bg border">
-      <div class="row">
-        <div class="col-4 text-left">
-          <div class="col-12 city-name">{{ city.name }}</div>
-          <div class="col-12 weather-description">{{ description }}</div>
-        </div>
-        <div class="col-8 text-right city-temperature">
+    <b-container fluid class="container-current wht-bg border">
+      <b-row>
+        <b-col cols="4" class="text-left">
+          <b-col cols="12" class="city-name">{{ city.name }}</b-col>
+          <b-col cols="12" class="weather-description">{{ description }}</b-col>
+        </b-col>
+        <b-col cols="8" class="text-right city-temperature">
           <img :src="iconSRC()" alt="current-weather-icon" />
           <span class="text-left">
             {{ temp }}
             <sup>o</sup>C
           </span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-3 text-left">
-          <div class="col-12"></div>
-          <div class="col-12 city-date">{{ datetime.date }}</div>
-          <div class="col-12 city-time">{{ datetime.time }}</div>
-        </div>
-        <div class="col-9 text-right">
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col cols="3" class="text-left">
+          <b-col cols="12" class="city-date">{{ datetime.date }}</b-col>
+          <b-col cols="12" class="city-time">{{ datetime.time }}</b-col>
+        </b-col>
+        <b-col cols="9" class="text-right">
           <ul class="city-details">
             <li>Wind: {{ city.wind.speed }} m/s</li>
             <li>Humidity: {{ city.main.humidity }} %</li>
             <li>Precipitation (3 h): {{ precipitation }} mm</li>
           </ul>
-        </div>
-      </div>
-    </div>
-    <div class="container-fluid container-forecasts">
-      <div class="row row-forecast">
-        <Forecast v-for="forecast in forecasts" v-bind:key="forecast.dt" :forecast="forecast" />
-      </div>
-    </div>
+        </b-col>
+      </b-row>
+    </b-container>
+    <b-container fluid class="container-forecasts">
+      <b-row class="row-forecast">
+        <Forecast
+          v-for="forecast in forecasts"
+          v-bind:key="forecast.dt"
+          :forecast="forecast"
+        />
+      </b-row>
+    </b-container>
   </div>
 </template>
 
 <script>
+import { BCol, BRow, BContainer } from "bootstrap-vue";
+
 import Forecast from "./ForecastCity";
 import axios from "axios";
 import moment from "moment";
@@ -45,6 +50,9 @@ import moment from "moment";
 export default {
   name: "CurrentCity",
   components: {
+    BCol,
+    BRow,
+    BContainer,
     Forecast
   },
   props: {

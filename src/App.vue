@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="app-header" class="wht-bg">Säätutka</div>
-    <div class="container-fluid app-container">
+    <b-container fluid class="app-container">
       <SelectCity @selectedCity="selectionHandler" :options="options" />
       <div v-if="!isLoading" class="weather-wrapper">
         <CurrentCity v-for="city in cities" :key="city.id" :city="city" />
@@ -9,11 +9,13 @@
       <div v-if="isLoading" class="spinner-grow" role="status">
         <span class="sr-only">Loading...</span>
       </div>
-    </div>
+    </b-container>
   </div>
 </template>
 
 <script>
+import { BContainer } from "bootstrap-vue";
+
 import CurrentCity from "./components/CurrentCity.vue";
 import SelectCity from "./components/SelectCity";
 
@@ -21,6 +23,7 @@ import axios from "axios";
 export default {
   name: "app",
   components: {
+    BContainer,
     CurrentCity,
     SelectCity
   },
@@ -87,7 +90,7 @@ export default {
 <style>
 /* HTML elements */
 body {
-  font-family: "Arial Regular";
+  font-family: "Arial Regular" !important;
   background-color: #f8f9fa;
 }
 
@@ -152,6 +155,6 @@ select {
 .col-8,
 .col-9,
 .col-12 {
-  padding: 0px;
+  padding: 0px !important;
 }
 </style>
