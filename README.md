@@ -41,3 +41,7 @@ npm run test
 ```
 npm run lint
 ```
+
+### Noticed issues:
+
+- Precipitation 3h: not always resulted from API, will mostly show 0.00

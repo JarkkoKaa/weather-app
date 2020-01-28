@@ -29,7 +29,7 @@
           <ul class="city-details">
             <li>Wind: {{ city.wind.speed }} m/s</li>
             <li>Humidity: {{ city.main.humidity }} %</li>
-            <li>Precipitation (3 h): 0 mm</li>
+            <li>Precipitation (3 h): {{ precipitation }} mm</li>
           </ul>
         </div>
       </div>
@@ -92,6 +92,14 @@ export default {
         time: moment(utcFormat).format("HH:mm")
       };
       return datetime;
+    },
+    precipitation() {
+      // check if rain or snow exists in forecast object else return 0
+      if ("rain" in this.city)
+        if ("3h" in this.city.rain) return this.city.rain["3h"];
+      if ("snow" in this.city)
+        if ("3h" in this.city.snow) return this.city.snow["3h"];
+      return 0;
     }
   },
   mounted() {
