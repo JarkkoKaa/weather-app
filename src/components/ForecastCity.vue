@@ -35,9 +35,11 @@ export default {
     precipitation() {
       // check if rain or snow exists in forecast object else return 0
       if ("rain" in this.forecast)
-        if ("3h" in this.forecast.rain) return this.forecast.rain["3h"];
+        if ("3h" in this.forecast.rain)
+          return Math.round(this.forecast.rain["3h"]);
       if ("snow" in this.forecast)
-        if ("3h" in this.forecast.snow) return this.forecast.snow["3h"];
+        if ("3h" in this.forecast.snow)
+          return Math.round(this.forecast.snow["3h"]);
       return 0;
     },
     time() {

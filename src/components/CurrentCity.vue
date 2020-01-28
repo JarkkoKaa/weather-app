@@ -96,9 +96,9 @@ export default {
     precipitation() {
       // check if rain or snow exists in forecast object else return 0
       if ("rain" in this.city)
-        if ("3h" in this.city.rain) return this.city.rain["3h"];
+        if ("3h" in this.city.rain) return Math.round(this.city.rain["3h"]);
       if ("snow" in this.city)
-        if ("3h" in this.city.snow) return this.city.snow["3h"];
+        if ("3h" in this.city.snow) return Math.round(this.city.snow["3h"]);
       return 0;
     }
   },
