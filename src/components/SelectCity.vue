@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid container-select">
     <select v-model="selected" @change="getSelected" class="form-control">
       <option v-for="option in options" :value="option.value" :key="option.value">{{ option.name }}</option>
     </select>
@@ -26,10 +26,10 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.container-select {
   padding-left: 0px;
   padding-right: 0px;
-  margin-bottom: 2vh;
+  margin-bottom: 1rem;
 }
 
 select {

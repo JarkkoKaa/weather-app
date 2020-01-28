@@ -1,31 +1,26 @@
 <template>
   <div class="weather-wrapper">
-    <div class="container wht-bg border">
+    <div class="container-fluid container-current wht-bg border">
       <div class="row">
-        <div class="col text-left">
-          <div class="col-12">
-            <span class="city-name">{{ city.name }}</span>
-          </div>
-          <div class="col-12">
-            <span class="weather-description">{{ city.weather[0].description }}</span>
-          </div>
+        <div class="col-4 text-left">
+          <div class="col-12 city-name">{{ city.name }}</div>
+          <div class="col-12 weather-description">{{ description }}</div>
         </div>
-        <div class="col text-right city-temperature">
+        <div class="col-8 text-right city-temperature">
           <img :src="iconSRC()" alt="current-weather-icon" />
-          {{ city.main.temp }}
-          <sup>o</sup>C
+          <span class="text-left">
+            {{ temp }}
+            <sup>o</sup>C
+          </span>
         </div>
       </div>
       <div class="row">
-        <div class="col-4 text-left">
-          <div class="col-12">
-            <span class="city-date">{{ datetime.date }}</span>
-          </div>
-          <div class="col-12">
-            <span class="city-time">{{ datetime.time }}</span>
-          </div>
+        <div class="col-3 text-left">
+          <div class="col-12"></div>
+          <div class="col-12 city-date">{{ datetime.date }}</div>
+          <div class="col-12 city-time">{{ datetime.time }}</div>
         </div>
-        <div class="col-8 text-right city-details">
+        <div class="col-9 text-right">
           <ul class="city-details">
             <li>Wind: {{ city.wind.speed }} m/s</li>
             <li>Humidity: {{ city.main.humidity }} %</li>
@@ -34,7 +29,7 @@
         </div>
       </div>
     </div>
-    <div class="container container-forecasts">
+    <div class="container-fluid container-forecasts">
       <div class="row row-forecast">
         <Forecast v-for="forecast in forecasts" v-bind:key="forecast.dt" :forecast="forecast" />
       </div>
@@ -82,6 +77,12 @@ export default {
     }
   },
   computed: {
+    temp() {
+      return Math.round(this.city.main.temp);
+    },
+    description() {
+      return this.city.weather[0].description;
+    },
     datetime: function() {
       // format UNIX time to UTC
       let utcFormat = moment().utc(this.city.dt);
@@ -108,20 +109,29 @@ export default {
 </script>
 
 <style scoped>
+/* Rows */
 .row {
   width: 100%;
   margin: 0px;
+  align-items: flex-end;
 }
 
 .row:first-child {
-  margin-bottom: 10vh;
+  margin-bottom: 1rem;
+  align-items: center;
 }
 
-.col,
+.row-forecast {
+  justify-content: space-between;
+}
+
+/* Columns */
+.col-3,
 .col-4,
 .col-8,
+.col-9,
 .col-12 {
-  padding: 0px;
+  line-height: 1.5rem;
 }
 
 .city-name {
@@ -138,22 +148,32 @@ export default {
 .city-temperature {
   font-size: 26pt;
   color: #262626;
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .city-date {
   font-size: 15pt;
   color: #262626;
 }
+
 .city-time {
   font-size: 13pt;
   color: #70757a;
 }
 
+/* List items */
 .city-details {
   font-size: 13pt;
   color: #70757a;
   list-style: none;
   margin-bottom: 0px;
+}
+
+/* Containers */
+.container-current {
+  padding: 1.25rem 1rem 1rem 1rem;
 }
 
 .container-forecasts {

@@ -6,7 +6,7 @@
         <img :src="iconSRC()" alt="forecast-icon" />
       </div>
       <div class="row temperature">
-        {{ forecast.main.temp }}
+        {{ temp }}
         <sup>o</sup>C
       </div>
     </div>
@@ -32,6 +32,9 @@ export default {
     }
   },
   computed: {
+    temp() {
+      return Math.round(this.forecast.main.temp);
+    },
     precipitation() {
       // check if rain or snow exists in forecast object else return 0
       if ("rain" in this.forecast)
@@ -52,6 +55,23 @@ export default {
 </script>
 
 <style scoped>
+/* Columns */
+.details {
+  font-size: 10pt;
+  color: #70757a;
+  background-color: #e5f6fd;
+}
+
+.col-2 {
+  flex: 0 0 19%;
+  max-width: 19%;
+}
+
+.col-12 {
+  padding: 0.5rem;
+}
+
+/* Rows */
 .time {
   font-size: 13pt;
   color: #70757a;
@@ -62,24 +82,11 @@ export default {
   color: #70757a;
 }
 
-.details {
-  font-size: 10pt;
-  color: #70757a;
-  background-color: #e5f6fd;
-}
-
 .row {
   display: block;
 }
 
-.col-2 {
-  padding-left: 0px;
-  padding-right: 0px;
-  flex: 0 0 19%;
-  max-width: 19%;
-}
-
-.col-12 {
-  padding: 0.5rem;
+.row-forecast {
+  justify-content: space-between;
 }
 </style>

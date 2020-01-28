@@ -42,6 +42,10 @@ npm run test
 npm run lint
 ```
 
+## Project
+
+Project is created with Vue CLI tool and uses bootstrap for fast mobile first experience development.
+
 ### Noticed issues:
 
 - Precipitation 3h: not always resulted from API, will mostly show 0.00

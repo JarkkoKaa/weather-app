@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <div id="app-header" class="wht-bg border">SÄÄTUTKA</div>
-    <div class="app-container">
+    <div id="app-header" class="wht-bg">Säätutka</div>
+    <div class="container-fluid app-container">
       <SelectCity @selectedCity="selectionHandler" :options="options" />
       <div v-if="!isLoading" class="weather-wrapper">
         <CurrentCity v-for="city in cities" :key="city.id" :city="city" />
       </div>
-      <div v-if="isLoading" class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+      <div v-if="isLoading" class="spinner-grow" role="status">
         <span class="sr-only">Loading...</span>
       </div>
     </div>
@@ -28,10 +28,10 @@ export default {
     return {
       options: [
         { name: "All cities", value: "all_cities" },
-        { name: "Tampere", value: 634964 },
+        { name: "Helsinki", value: 658225 },
         { name: "Jyväskylä", value: 655195 },
         { name: "Kuopio", value: 650225 },
-        { name: "Helsinki", value: 658225 }
+        { name: "Tampere", value: 634964 }
       ],
       cities: [],
       isLoading: true
@@ -107,51 +107,73 @@ export default {
 </script>
 
 <style>
+/* HTML elements */
 body {
   font-family: "Arial Regular";
   background-color: #f8f9fa;
 }
 
+select {
+  margin-bottom: 1rem;
+}
+
+/* App */
 #app {
   align-items: center;
   display: flex;
   flex-direction: column;
 }
 
+/* Header */
 #app-header {
   font-size: 23pt;
   color: #262626;
   width: 100%;
   text-align: center;
-  padding: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #e6e6e6;
+  margin-bottom: 1rem;
 }
 
+/* Global containers */
 .app-container {
-  width: 89.33%;
   align-items: center;
   display: flex;
   flex-direction: column;
 }
 
+.container-fluid {
+  width: 99%;
+}
+
+/* Border and background */
 .border {
   border: 1px solid #e6e6e6;
   border-radius: 10px;
-  margin-bottom: 2vh;
-}
-
-.row-forecast {
-  justify-content: space-between;
-}
-
-select {
-  margin-bottom: 2vh;
+  margin-bottom: 1rem;
 }
 
 .wht-bg {
   background: #ffffff;
 }
 
+/* Global wrapper */
 .weather-wrapper {
   width: 100%;
+}
+
+/* Custom bootstrap */
+.spinner-grow {
+  width: 6rem;
+  height: 6rem;
+}
+
+.col-2,
+.col-3,
+.col-4,
+.col-8,
+.col-9,
+.col-12 {
+  padding: 0px;
 }
 </style>
