@@ -30,11 +30,7 @@
     </b-container>
     <b-container fluid class="container-forecasts">
       <b-row class="row-forecast">
-        <Forecast
-          v-for="forecast in forecasts"
-          v-bind:key="forecast.dt"
-          :forecast="forecast"
-        />
+        <Forecast v-for="forecast in forecasts" v-bind:key="forecast.dt" :forecast="forecast" />
       </b-row>
     </b-container>
   </div>
@@ -44,6 +40,7 @@
 import { BCol, BRow, BContainer } from "bootstrap-vue";
 
 import Forecast from "./ForecastCity";
+
 import axios from "axios";
 import moment from "moment";
 
@@ -93,11 +90,11 @@ export default {
     },
     datetime: function() {
       // format UNIX time to UTC
-      let utcFormat = moment().utc(this.city.dt);
+      let utcFormat = moment.unix(this.city.dt);
       // set datetime object with seperated date and time
       let datetime = {
-        date: moment(utcFormat).format("MMMM Do"),
-        time: moment(utcFormat).format("HH:mm")
+        date: utcFormat.format("MMMM Do"),
+        time: utcFormat.format("HH:mm")
       };
       return datetime;
     },

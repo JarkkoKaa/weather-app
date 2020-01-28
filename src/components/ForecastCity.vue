@@ -20,6 +20,9 @@
 
 <script>
 import { BCol, BRow } from "bootstrap-vue";
+
+import moment from "moment";
+
 export default {
   name: "ForecastCity",
   components: {
@@ -51,9 +54,8 @@ export default {
       return 0;
     },
     time() {
-      // handle datetime as a string, split time
-      let time = this.forecast.dt_txt.split(" ");
-      return time[1].slice(0, 5);
+      let time = moment.unix(this.forecast.dt);
+      return time.format("HH:mm");
     }
   }
 };
