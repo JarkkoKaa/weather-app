@@ -1,32 +1,55 @@
 <template>
-  <div class="col-2 border text-center">
+  <div class="col-2 wht-bg border text-center">
     <div class="col-12">
-      <div class="row time">15:00</div>
-      <div class="row">ICON</div>
+      <div class="row time">{{ time }}</div>
+      <div class="row">
+        <img :src="iconSRC()" alt="forecast-icon" />
+      </div>
       <div class="row temperature">
-        -1
+        {{ forecast.main.temp }}
         <sup>o</sup>C
       </div>
     </div>
     <div class="col-12 details">
-      <div class="row">2.1 m/s</div>
-      <div class="row">5 %</div>
-      <div class="row">1 mm</div>
+      <div class="row">{{ forecast.wind.speed }} m/s</div>
+      <div class="row">{{ forecast.main.humidity }} %</div>
+      <div class="row">{{ precipitation }} mm</div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "ForecastCity"
+  name: "ForecastCity",
+  props: {
+    forecast: Object
+  },
+  methods: {
+    iconSRC() {
+      return (
+        process.env.VUE_APP_IMGURL + this.forecast.weather[0].icon + ".png"
+      );
+    }
+  },
+  computed: {
+    precipitation() {
+      // check if rain or snow exists in forecast object else return 0
+      if ("rain" in this.forecast)
+        if ("3h" in this.forecast.rain) return this.forecast.rain["3h"];
+      if ("snow" in this.forecast)
+        if ("3h" in this.forecast.snow) return this.forecast.snow["3h"];
+      return 0;
+    },
+    time() {
+      // handle datetime as a string, split time
+      let time = this.forecast.dt_txt.split(" ");
+      return time[1].slice(0, 5);
+    }
+  }
 };
 </script>
 
 <style scoped>
-.col {
-  background-color: #ffffff;
-}
-
 .time {
   font-size: 13pt;
   color: #70757a;
@@ -50,7 +73,6 @@ export default {
 .col-2 {
   padding-left: 0px;
   padding-right: 0px;
-  background: #ffffff;
   flex: 0 0 19%;
   max-width: 19%;
 }

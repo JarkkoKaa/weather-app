@@ -1,17 +1,11 @@
 <template>
   <div id="app">
-    <div id="app-header" class="border">SÄÄTUTKA</div>
+    <div id="app-header" class="wht-bg border">SÄÄTUTKA</div>
     <div class="app-container">
-      <SelectCity />
-      <CurrentCity />
-      <div class="container">
-        <div class="row row-forecast">
-          <Forecast />
-          <Forecast />
-          <Forecast />
-          <Forecast />
-          <Forecast />
-        </div>
+      <SelectCity @selectedCity="getSelected" :options="options" />
+      <CurrentCity v-if="!isLoading" :city="selectedWeather" />
+      <div v-if="isLoading" class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
       </div>
     </div>
   </div>
@@ -20,13 +14,48 @@
 <script>
 import CurrentCity from "./components/CurrentCity.vue";
 import SelectCity from "./components/SelectCity";
-import Forecast from "./components/ForecastCity";
+
+import axios from "axios";
 export default {
   name: "app",
   components: {
     CurrentCity,
-    SelectCity,
-    Forecast
+    SelectCity
+  },
+  data() {
+    return {
+      options: [
+        { name: "Tampere", value: 634964 },
+        { name: "Jyväskylä", value: 655195 },
+        { name: "Kuopio", value: 650225 },
+        { name: "Helsinki", value: 658225 }
+      ],
+      selectedWeather: {},
+      isLoading: true
+    };
+  },
+  methods: {
+    async getSelected(val) {
+      this.isLoading = true;
+      let result = await axios
+        .get(
+          process.env.VUE_APP_BASE +
+            "weather?id=" +
+            val +
+            "&units=metric" +
+            "&appid=" +
+            process.env.VUE_APP_APIKEY
+        )
+        .then(response => {
+          return response;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      this.selectedWeather = result.data;
+      this.isLoading = false;
+      console.log(this.selectedWeather);
+    }
   }
 };
 </script>
@@ -48,7 +77,6 @@ body {
   color: #262626;
   width: 100%;
   text-align: center;
-  background-color: #ffffff;
   padding: 1rem;
 }
 
@@ -61,9 +89,6 @@ body {
 
 .border {
   border: 1px solid #e6e6e6;
-}
-
-.border {
   border-radius: 10px;
   margin-bottom: 2vh;
 }
@@ -74,5 +99,9 @@ body {
 
 select {
   margin-bottom: 2vh;
+}
+
+.wht-bg {
+  background: #ffffff;
 }
 </style>
