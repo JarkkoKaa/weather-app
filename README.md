@@ -1,4 +1,4 @@
-# saatutkaapp
+# Weather Radar (säätutka)
 
 Project uses Open Weather Maps API. URIs and API Key will be stored in .env file.
 
