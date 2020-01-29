@@ -6,7 +6,7 @@
       <div v-if="!isLoading" class="weather-wrapper">
         <CurrentCity v-for="city in cities" :key="city.id" :city="city" />
       </div>
-      <b-spinner v-if="isLoading" variant="success" type="grow" label="Spinning">
+      <b-spinner v-if="isLoading" type="grow" label="Spinning">
         <span class="sr-only">Loading...</span>
       </b-spinner>
       <Error v-if="err" componentName="curret city" />
@@ -152,6 +152,7 @@ select {
 .spinner-grow {
   width: 6rem;
   height: 6rem;
+  color: #00a5e5;
 }
 
 .col-2,
