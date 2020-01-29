@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="app-header" class="wht-bg marginbottom">Säätutka</div>
+    <div id="app-header" class="wht-bg marginbottom">Weather radar</div>
     <b-container fluid class="app-container">
       <SelectCity @selectedCity="selectionHandler" :options="options" />
       <div v-if="!isLoading" class="weather-wrapper">
