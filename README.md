@@ -46,7 +46,7 @@ Application is tested with:
 - Mozilla Firefox version 72.0.2
 - Chrome (desktop and mobile) versions 79.0
 
-### libraries
+### Libraries
 
 - Bootstrap Vue & Bootstrap - Responsive style and design libraries, using tree shaking technique for minimal build size
 - Axios - for HTTP requests
