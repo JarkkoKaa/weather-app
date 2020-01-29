@@ -76,7 +76,6 @@ export default {
             "&appid=" +
             process.env.VUE_APP_APIKEY
         );
-
         this.cities = result.data.list;
         //  this.selectedWeather = result.data;
         this.isLoading = false;
