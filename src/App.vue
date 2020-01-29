@@ -6,26 +6,30 @@
       <div v-if="!isLoading" class="weather-wrapper">
         <CurrentCity v-for="city in cities" :key="city.id" :city="city" />
       </div>
-      <div v-if="isLoading" class="spinner-grow" role="status">
+      <b-spinner v-if="isLoading" variant="success" type="grow" label="Spinning">
         <span class="sr-only">Loading...</span>
-      </div>
+      </b-spinner>
+      <Error v-if="err" componentName="curret city" />
     </b-container>
   </div>
 </template>
 
 <script>
-import { BContainer } from "bootstrap-vue";
+import { BContainer, BSpinner } from "bootstrap-vue";
 
-import CurrentCity from "./components/CurrentCity.vue";
+import CurrentCity from "./components/CurrentCity";
 import SelectCity from "./components/SelectCity";
+import Error from "./components/Error";
 
 import axios from "axios";
 export default {
   name: "app",
   components: {
     BContainer,
+    BSpinner,
     CurrentCity,
-    SelectCity
+    SelectCity,
+    Error
   },
   data() {
     return {
@@ -37,7 +41,8 @@ export default {
         { name: "Tampere", value: 634964 }
       ],
       cities: [],
-      isLoading: true
+      isLoading: true,
+      err: false
     };
   },
   methods: {
@@ -59,25 +64,27 @@ export default {
     // get all cities and selected cities -fixes non scandic characters
     async getSelected(IDs) {
       this.cities = [];
+      this.error = false;
       this.isLoading = true;
-      let result = await axios
-        .get(
+
+      try {
+        let result = await axios.get(
           process.env.VUE_APP_BASE +
             "group?id=" +
             IDs +
             "&units=metric" +
             "&appid=" +
             process.env.VUE_APP_APIKEY
-        )
-        .then(response => {
-          return response;
-        })
-        .catch(error => {
-          console.log(error);
-        });
-      this.cities = result.data.list;
-      //  this.selectedWeather = result.data;
-      this.isLoading = false;
+        );
+
+        this.cities = result.data.list;
+        //  this.selectedWeather = result.data;
+        this.isLoading = false;
+      } catch (error) {
+        console.log(error);
+        this.isLoading = false;
+        this.err = true;
+      }
     }
   },
   mounted() {

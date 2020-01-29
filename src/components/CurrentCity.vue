@@ -30,6 +30,7 @@
     </b-container>
     <b-container fluid class="container-forecasts marginbottom">
       <b-row class="row-forecast">
+        <Error v-if="err" componentName="forecast" />
         <Forecast v-for="forecast in forecasts" v-bind:key="forecast.dt" :forecast="forecast" />
       </b-row>
     </b-container>
@@ -40,6 +41,7 @@
 import { BCol, BRow, BContainer } from "bootstrap-vue";
 
 import Forecast from "./ForecastCity";
+import Error from "./Error";
 
 import axios from "axios";
 import moment from "moment";
@@ -50,32 +52,33 @@ export default {
     BCol,
     BRow,
     BContainer,
-    Forecast
+    Forecast,
+    Error
   },
   props: {
     city: Object
   },
   data() {
     return {
-      forecasts: {}
+      forecasts: {},
+      err: false
     };
   },
   methods: {
     async getForecast() {
-      let result = await axios(
-        process.env.VUE_APP_BASE +
-          "forecast?id=" +
-          this.city.id +
-          "&units=metric&cnt=5&appid=" +
-          process.env.VUE_APP_APIKEY
-      )
-        .then(response => {
-          return response.data.list;
-        })
-        .catch(error => {
-          console.log(error);
-        });
-      this.forecasts = result;
+      this.error = false;
+      try {
+        let result = await axios(
+          process.env.VUE_APP_BASE +
+            "forecast?id=" +
+            this.city.id +
+            "&units=metric&cnt=5&appid=" +
+            process.env.VUE_APP_APIKEY
+        );
+        this.forecasts = result.data.list;
+      } catch (error) {
+        this.err = true;
+      }
     },
     iconSRC() {
       return process.env.VUE_APP_IMGURL + this.city.weather[0].icon + "@2x.png";
