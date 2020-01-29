@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="app-header" class="wht-bg">Säätutka</div>
+    <div id="app-header" class="wht-bg marginbottom">Säätutka</div>
     <b-container fluid class="app-container">
       <SelectCity @selectedCity="selectionHandler" :options="options" />
       <div v-if="!isLoading" class="weather-wrapper">
@@ -91,7 +91,7 @@ export default {
 /* HTML elements */
 body {
   font-family: "Arial Regular" !important;
-  background-color: #f8f9fa;
+  background-color: #f8f9fa !important;
 }
 
 select {
@@ -111,9 +111,8 @@ select {
   color: #262626;
   width: 100%;
   text-align: center;
-  padding: 0.5rem;
+  padding: 1.25rem;
   border: 1px solid #e6e6e6;
-  margin-bottom: 1rem;
 }
 
 /* Global containers */
@@ -124,14 +123,13 @@ select {
 }
 
 .container-fluid {
-  width: 99%;
+  width: 99% !important;
 }
 
 /* Border and background */
 .border {
-  border: 1px solid #e6e6e6;
+  border: 1px solid #e6e6e6 !important;
   border-radius: 10px;
-  margin-bottom: 1rem;
 }
 
 .wht-bg {
@@ -152,9 +150,16 @@ select {
 .col-2,
 .col-3,
 .col-4,
+.col-5,
+.col-7,
 .col-8,
 .col-9,
 .col-12 {
   padding: 0px !important;
+}
+
+/* Custom classes */
+.marginbottom {
+  margin-bottom: 1.15rem;
 }
 </style>

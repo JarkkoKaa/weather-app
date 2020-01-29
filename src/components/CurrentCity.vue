@@ -1,12 +1,12 @@
 <template>
   <div class="weather-wrapper">
-    <b-container fluid class="container-current wht-bg border">
+    <b-container fluid class="container-current wht-bg border marginbottom">
       <b-row>
-        <b-col cols="4" class="text-left">
+        <b-col cols="5" class="text-left lineheight">
           <b-col cols="12" class="city-name">{{ city.name }}</b-col>
           <b-col cols="12" class="weather-description">{{ description }}</b-col>
         </b-col>
-        <b-col cols="8" class="text-right city-temperature">
+        <b-col cols="7" class="text-right city-temperature lineheight">
           <img :src="iconSRC()" alt="current-weather-icon" />
           <span class="text-left">
             {{ temp }}
@@ -15,11 +15,11 @@
         </b-col>
       </b-row>
       <b-row>
-        <b-col cols="3" class="text-left">
+        <b-col cols="5" class="text-left lineheight">
           <b-col cols="12" class="city-date">{{ datetime.date }}</b-col>
           <b-col cols="12" class="city-time">{{ datetime.time }}</b-col>
         </b-col>
-        <b-col cols="9" class="text-right">
+        <b-col cols="7" class="text-right lh">
           <ul class="city-details">
             <li>Wind: {{ city.wind.speed }} m/s</li>
             <li>Humidity: {{ city.main.humidity }} %</li>
@@ -28,7 +28,7 @@
         </b-col>
       </b-row>
     </b-container>
-    <b-container fluid class="container-forecasts">
+    <b-container fluid class="container-forecasts marginbottom">
       <b-row class="row-forecast">
         <Forecast v-for="forecast in forecasts" v-bind:key="forecast.dt" :forecast="forecast" />
       </b-row>
@@ -131,14 +131,6 @@ export default {
 }
 
 /* Columns */
-.col-3,
-.col-4,
-.col-8,
-.col-9,
-.col-12 {
-  line-height: 1.5rem;
-}
-
 .city-name {
   font-size: 19pt;
   color: #262626;
@@ -174,15 +166,21 @@ export default {
   color: #70757a;
   list-style: none;
   margin-bottom: 0px;
+  padding: 0rem;
 }
 
 /* Containers */
 .container-current {
-  padding: 1.25rem 1rem 1rem 1rem;
+  padding: 0.5rem 1.25rem 1rem 1.25rem;
 }
 
 .container-forecasts {
   padding-left: 0px;
   padding-right: 0px;
+}
+
+/* Custom classes */
+.lineheight {
+  line-height: 1.5rem;
 }
 </style>

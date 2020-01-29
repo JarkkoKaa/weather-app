@@ -1,12 +1,7 @@
 <template>
-  <b-container fluid class="container-select">
+  <b-container fluid class="container-select marginbottom">
     <select v-model="selected" @change="getSelected" class="form-control">
-      <option
-        v-for="option in options"
-        :value="option.value"
-        :key="option.value"
-        >{{ option.name }}</option
-      >
+      <option v-for="option in options" :value="option.value" :key="option.value">{{ option.name }}</option>
     </select>
   </b-container>
 </template>
@@ -39,10 +34,13 @@ export default {
 .container-select {
   padding-left: 0px;
   padding-right: 0px;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 select {
   margin-bottom: 0px;
+  height: 3rem;
+  color: #262626;
+  font-size: 13pt;
 }
 </style>

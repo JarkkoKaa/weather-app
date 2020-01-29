@@ -75,7 +75,7 @@ export default {
 }
 
 .col-12 {
-  padding: 0.5rem;
+  padding: 1rem 0.25rem 0.5rem 0.25rem !important;
 }
 
 /* Rows */
