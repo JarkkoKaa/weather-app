@@ -1,18 +1,17 @@
 # saatutkaapp
 
-Project uses Open Weather Maps API. URIs and API Key is stored in .env file.
-
-### ENV file structure
+Project uses Open Weather Maps API. URIs and API Key will be stored in .env file.
+.env file must be created in the projects root folder with this structure:
 
 ```
-VUE_APP_APIKEY={ Insert your API key }
+VUE_APP_APIKEY={ Insert your API key here }
 VUE_APP_IMGURL=https://openweathermap.org/img/wn/
 VUE_APP_BASE=https://api.openweathermap.org/data/2.5/
 ```
 
 ## Project setup
 
-To install all necessary dependencies
+To install all libraries
 
 ```
 npm install
@@ -30,12 +29,6 @@ npm run serve
 npm run build
 ```
 
-### Run your tests
-
-```
-npm run test
-```
-
 ### Lints and fixes files
 
 ```
@@ -45,6 +38,10 @@ npm run lint
 ## Project
 
 Project is created with Vue CLI tool and uses bootstrap for fast mobile first experience development.
+
+Application is tested with:
+Mozilla Firefox version 72.0.2
+Chrome (desktop and mobile) versions 79.0
 
 ### Noticed issues:
 
